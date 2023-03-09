@@ -1,0 +1,38 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block content %}
+    <h1>Create a new post</h1>
+    <form>
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label>Slug</label>
+            <input type="text" class="form-control" id="slug" name="slug" required>
+        </div>
+        <label>Content</label>
+        <div class="summernote" id="summernote"></div>
+        <button type="button" onclick="createPost()" class="btn btn-primary mt-5">Create</button>
+    </form>
+    <script>
+        $(document).ready(function() {
+            $('.summernote').summernote({height: 300});
+        });
+        function createPost() {
+            var title = $("#title").val();
+            var slug = $("#slug").val();
+            var content = $("#summernote").summernote("code");
+
+            $.ajax({
+                type: "POST",
+                url: '../posts/create/new',
+                async: true,
+                data: { title: title, content: content, slug: slug },
+                success: function () {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+{% endblock %}

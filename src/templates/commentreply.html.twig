@@ -1,0 +1,30 @@
+<form>
+    {% for p in post %}
+        <div class="form-group d-none" id="reply-{{ c.id }}">
+            <label>Email address</label>
+            <input type="email" class="form-control col-md-6" name="email" id="email-{{ c.id }}">
+            <label>Name</label>
+            <input type="name" class="form-control col-md-6" name="name" id="name-{{ c.id }}">
+            <label>Comment</label>
+            <textarea type="comment" class="form-control col-md-6" name="comment" id="comment-{{ c.id }}"></textarea>
+            <button type="button" onclick="postReply('{{ p.id }}', '{{ c.id }}')" class="btn btn-secondary btn-sm mt-4">Submit</button>
+        </div>
+    {% endfor %}
+</form>
+<script>
+    function postReply(id, replyid)
+    {
+        var name = $("#name-"+replyid).val();
+        var email = $("#email-"+replyid).val();
+        var comment = $("#comment-"+replyid).val();
+        $.ajax({
+            type: "POST",
+            url: '/comment/create/' + id,
+            async: true,
+            data: { name: name, email: email, comment: comment, reply: replyid},
+            success: function () {
+                location.reload();
+            }
+        });
+    }
+</script>

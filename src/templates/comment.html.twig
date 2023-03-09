@@ -1,0 +1,72 @@
+{% for c in comments %}
+    {% if c.replyto is empty %}
+<div class="comments" xmlns="http://www.w3.org/1999/html">
+    {% if session.loggedin  %}
+    <div class = "delete-comment float-right">
+        <button onclick="deleteComment('{{ c.id }}')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+        </button>
+    </div>
+    {% endif %}
+    <div class = "comments-avatar d-inline-block">
+        <img src = "https://via.placeholder.com/60">
+    </div>
+    <div class = "comments-author d-inline-block ml-2 align-top">
+        <p class = "d-inline">{{ c.name }}</p>
+        <p class = "d-inline">says:</p>
+        <p class = "d-block">June 12, 2021 at 12:46 PM</p>
+    </div>
+    <div class = "comments-body mt-4">
+        <p>{{ c.comment }}</p>
+    </div>
+    <a onclick = "openReply('{{ c.id }}')">Reply</a>
+        {% include 'commentreply.html.twig' %}
+    <hr>
+</div>
+    {% endif %}
+    {% for x in comments  %}
+        {% if c.id == x.replyto %}
+        <div class = "comments-reply m-5">
+            {% if session.loggedin  %}
+            <div class = "delete-comment float-right">
+                <button onclick="deleteComment('{{ x.id }}')"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </button>
+            </div>
+            {% endif %}
+            <div class = "comments-avatar d-inline-block">
+                <img src = "https://via.placeholder.com/60">
+            </div>
+            <div class = "comments-author d-inline-block ml-2 align-top">
+                <p class = "d-inline">{{ x.name }}</p>
+                <p class = "d-inline">says:</p>
+                <p class = "d-block">June 12, 2021 at 12:46 PM</p>
+            </div>
+            <div class = "comments-body mt-4">
+                <p>{{ x.comment }}</p>
+            </div>
+            <a onclick = "openReply('{{ c.id }}')">Reply</a>
+            {% include 'commentreply.html.twig' %}
+            <hr>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+<script>
+    function openReply(id) {
+        document.getElementById("reply-"+id).className = "form-group d-inline";
+    }
+    function deleteComment(id) {
+        $.ajax({
+            type: "POST",
+            url: '/comment/delete/' + id,
+            async: true,
+            data: {},
+            success: function () {
+                location.reload();
+            }
+        });
+    }
+</script>

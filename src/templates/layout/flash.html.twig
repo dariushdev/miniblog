@@ -1,0 +1,19 @@
+{% if session.flash %}
+    {% for key,message in session.flash %}
+        {%  if key == 'error' %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for value in message %}
+                        <li>{{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if key == 'success' %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    {{ unset() }}
+{% endif %}

@@ -1,0 +1,14 @@
+{% extends 'layout/layout.html.twig' %}
+{% block content %}
+   <div class = "m-5">
+      {% for p in post %}
+         <h1 class = "text-monospace">{{p.title}}</h1>
+         <p class="text-uppercase text-monospace">Posted by: {{ p.name }} / {{ p.created }}</p>
+         <hr>
+         <p>{{p.body|raw}}</p>
+      {% endfor %}
+      <h3 class = "mb-4">Comments ({{ comments|length }})</h3>
+      {% include 'comment.html.twig' %}
+      <h3 class = "mb-4">Leave a Reply</h3>
+      {% include 'commentform.html.twig' %}
+{% endblock %}

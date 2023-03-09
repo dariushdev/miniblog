@@ -1,0 +1,17 @@
+{% extends 'layout/layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        {% for post in posts %}
+            <div class="m-5">
+                <h1 class="text-monospace">{{ post.title }}</h1>
+                <p class="text-uppercase text-monospace">Posted by: {{ post.name }} / {{ post.created }} </p>
+                <hr>
+                <p>{{  post.body|length > 1000 ? post.body|striptags|slice(0, 100)|raw ~ '...' : post.body|raw }}</p>
+                <a href="posts/{{ post.slug }}" class="btn btn-secondary btn-sm" role="button">
+                    Read More
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
