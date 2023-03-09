@@ -1,6 +1,11 @@
-![App Screenshot](/screenshots/frontpage.jpg)
-![GitHub](https://img.shields.io/github/license/dariushdev/miniblog)
-![GitHub all releases](https://img.shields.io/github/downloads/dariushdev/miniblog/total)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dariushdev/miniblog/master/screenshots/frontpage.jpg" alt="Miniblog preview"/>
+</p>
+<p align="center">
+  <img src="https://img.shields.io/github/license/dariushdev/miniblog" alt="Miniblog preview"/>
+  <img src="https://img.shields.io/github/downloads/dariushdev/miniblog/total" alt="Miniblog preview"/>
+</p>
+
 # Miniblog
 
 Minimalistic blog made with PHP
